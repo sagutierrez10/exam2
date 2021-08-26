@@ -1,0 +1,47 @@
+<% if flash[:errors] %>
+  <% flash[:errors].each do |e| %>
+    <p class="alert alert-danger"><%= e %></p>
+  <% end %>
+<% end %>
+
+<div class="container">
+  <div class="left">
+    <h1> Hi <%= @user.first_name %> <%= @user.last_name %>!</h1>
+    <ul>Here are the organizations you may join
+      <% @groups.each do |group| %>
+        <li><a href="/groups/<%= group.id %>"><%= group.name %></a></li>
+        <p>Members: <%= group.joins.count %></p>
+        <p> <%= group.description %></p>
+        <% if group.user_id == current_user.id %>
+          <a href="<%= group_path(group.id) %>" data-method="delete"> Delete </a>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="right">
+    <div class="links">
+      <%= link_to "Log out", "/logout", data: { method: :delete} %>
+    </div>
+    <form class="box" action="/groups" method='post'>
+      <input name="group[user_id]" type="hidden" value="<%= current_user.id %>">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <p>Create a new Organization: </p>
+      <br>
+      <label for="name">Org name</label>
+      <input type="text" class="form-control" id="name" name="group[name]">
+      <br>
+      <p>Description:</p>
+      <textarea id="description" name="group[description]" rows="4" cols="50"></textarea>
+      <br>
+      <input type="submit" value="create">
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+

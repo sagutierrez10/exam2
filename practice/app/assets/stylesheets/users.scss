@@ -1,0 +1,12 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap:100px;
+}
+.col-md-7{
+  margin-top: 70px;
+}
